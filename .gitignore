@@ -1,0 +1,27 @@
+# secrets - never commit these
+.env
+backend/.env
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# per-student local identity files (created by mockingbird_student.py
+# when it runs - these are personal to whoever ran it, not project code)
+.mockingbird_signature
+.mockingbird_name
+.mockingbird_classroom
+
+# node / frontend
+node_modules/
+dist/
+.vite/
+
+# editor / os junk
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

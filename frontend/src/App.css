@@ -1,0 +1,155 @@
+/* keeping this deliberately simple — no Tailwind, no component library,
+   just plain CSS so it's easy to explain in an interview */
+
+:root {
+  --bg: #faf9f6;
+  --ink: #1f2937;
+  --accent: #3d5a80;
+  --accent-light: #98c1d9;
+  --muted: #6b7280;
+  --panel: #ffffff;
+  --border: #e5e0d8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.landing {
+  max-width: 480px;
+  margin: 10vh auto;
+  text-align: center;
+  padding: 0 1.5rem;
+}
+
+.landing h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.25rem;
+  color: var(--accent);
+}
+
+.tagline {
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.role-cards {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.role-card {
+  flex: 1;
+  padding: 1.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.role-card:hover {
+  border-color: var(--accent-light);
+  transform: translateY(-2px);
+}
+
+.role-icon {
+  font-size: 1.8rem;
+}
+
+.footnote {
+  margin-top: 2.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.dashboard, .student-view {
+  max-width: 800px;
+  margin: 5vh auto;
+  padding: 0 1.5rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.roster-list, .item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.roster-list li, .item-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.file-count {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.status-pill.ok {
+  background: #e3f2e1;
+  color: #2f6d3a;
+}
+
+.status-pill.warn {
+  background: #fbe9e7;
+  color: #a13c30;
+}
+
+.warning-banner {
+  background: #fff3cd;
+  border: 1px solid #ffe08a;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+code {
+  background: #f1efe9;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
