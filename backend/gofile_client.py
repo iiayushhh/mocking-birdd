@@ -15,15 +15,13 @@ couple things worth knowing if you're reading this:
 """
 
 import os
-from contextlib import contextmanager
 from datetime import datetime, timezone
 import random
 import string
 
 import httpx
-import psycopg2
-import psycopg2.extras
-from psycopg2.pool import SimpleConnectionPool
+from psycopg.rows import dict_row
+from psycopg_pool import ConnectionPool
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -37,19 +35,19 @@ DATABASE_URL = os.getenv(
     "postgresql://postgres:postgres@localhost:5432/mockingbird",
 )
 
-# connection pool instead of opening a new conn every request, seemed
-# wasteful otherwise for something this small
-_pool = SimpleConnectionPool(1, 10, DATABASE_URL)
+# switched from psycopg2 to psycopg (v3) - psycopg2-binary doesn't have a
+# build for newer python versions (render runs 3.14), kept crashing with
+# "undefined symbol" errors on import. psycopg3's connection pool is its
+# own package (psycopg_pool) and gives back dict rows directly if you set
+# row_factory, so no more manual cursor_factory juggling
+_pool = ConnectionPool(DATABASE_URL, min_size=1, max_size=10, kwargs={"row_factory": dict_row})
 
 
-@contextmanager
 def _get_conn():
-    conn = _pool.getconn()
-    try:
-        conn.cursor_factory = psycopg2.extras.RealDictCursor
-        yield conn
-    finally:
-        _pool.putconn(conn)
+    # pool.connection() is already a context manager that checks a conn
+    # out and returns it when done, so this is just here so the rest of
+    # the file doesn't need to change - still call it as "with _get_conn() as conn:"
+    return _pool.connection()
 
 
 def init_db():
